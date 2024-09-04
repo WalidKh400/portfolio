@@ -1,11 +1,11 @@
-// Typing effect
+
 const typedTextSpan = document.querySelector(".typing-text span");
 const cursorSpan = document.querySelector(".cursor");
 
 const textArray = ["Developer", "Designer", "Freelancer", "Student"];
 const typingDelay = 200;
 const erasingDelay = 100;
-const newTextDelay = 2000; // Delay between current and next text
+const newTextDelay = 2000; 
 let textArrayIndex = 0;
 let charIndex = 0;
 
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (textArray.length) setTimeout(type, newTextDelay + 250);
 });
 
-// Menu toggle for mobile view
+
 const menuToggle = document.querySelector('.menu-toggle');
 const nav = document.querySelector('nav');
 
