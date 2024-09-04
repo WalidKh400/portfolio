@@ -135,7 +135,7 @@ section {
     padding: 5rem 5%;
 }
 
-/* Home Section */
+
 .home {
     display: flex;
     justify-content: center;
@@ -250,7 +250,7 @@ section {
     color: #0a0a0a;
 }
 
-/* Glowing Button for "Dookie on me" */
+
 .glowing-btn {
     display: inline-block;
     margin-top: 3rem;
@@ -281,7 +281,7 @@ section {
     }
 }
 
-/* New styles for website link */
+
 .website-link {
     margin-top: 2rem;
     font-size: 1.8rem;
@@ -310,7 +310,7 @@ section {
     text-shadow: 0 0 10px #e63946;
 }
 
-/* Fade-in animation */
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
