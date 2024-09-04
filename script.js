@@ -1,45 +1,49 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const menuToggle = document.querySelector('.menu-toggle');
-    const nav = document.querySelector('nav');
-    const header = document.querySelector('header');
+// Typing effect
+const typedTextSpan = document.querySelector(".typing-text span");
+const cursorSpan = document.querySelector(".cursor");
 
-    // Toggle mobile menu
-    menuToggle.addEventListener('click', () => {
-        nav.classList.toggle('active');
-    });
+const textArray = ["Developer", "Designer", "Freelancer", "Student"];
+const typingDelay = 200;
+const erasingDelay = 100;
+const newTextDelay = 2000; // Delay between current and next text
+let textArrayIndex = 0;
+let charIndex = 0;
 
-    // Change header style on scroll
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-    });
-
-    // Smooth scroll for anchor links
-    document.querySelectorAll('nav a').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
-        });
-    });
-
-    // Typing effect text change
-    const typingText = document.querySelector('.typing-text span');
-    const texts = ["Web Designer", "Web Developer", "Graphic Designer", "UI/UX Designer", "Freelancer", "Creative Thinker"];
-    let index = 0;
-
-    function changeText() {
-        typingText.textContent = texts[index];
-        typingText.style.opacity = 0;
-        setTimeout(() => {
-            typingText.style.opacity = 1;
-        }, 200); // Fade effect duration
-        index = (index + 1) % texts.length;
+function type() {
+    if (charIndex < textArray[textArrayIndex].length) {
+        typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
+        charIndex++;
+        setTimeout(type, typingDelay);
+    } else {
+        setTimeout(erase, newTextDelay);
     }
+}
 
-    setInterval(changeText, 3000); // Change text every 3 seconds
+function erase() {
+    if (charIndex > 0) {
+        typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex - 1);
+        charIndex--;
+        setTimeout(erase, erasingDelay);
+    } else {
+        textArrayIndex++;
+        if (textArrayIndex >= textArray.length) textArrayIndex = 0;
+        setTimeout(type, typingDelay + 1100);
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    if (textArray.length) setTimeout(type, newTextDelay + 250);
+});
+
+// Menu toggle for mobile view
+const menuToggle = document.querySelector('.menu-toggle');
+const nav = document.querySelector('nav');
+
+menuToggle.addEventListener('click', () => {
+    nav.classList.toggle('active');
+});
+
+window.addEventListener('scroll', () => {
+    const header = document.querySelector('header');
+    header.classList.toggle('scrolled', window.scrollY > 0);
 });
