@@ -1,49 +1,43 @@
+document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('nav');
 
-const typedTextSpan = document.querySelector(".typing-text span");
-const cursorSpan = document.querySelector(".cursor");
+    menuToggle.addEventListener('click', function() {
+        nav.classList.toggle('active');
+        menuToggle.classList.toggle('fa-times');
+    });
 
-const textArray = ["Developer", "Designer", "Freelancer", "Student"];
-const typingDelay = 200;
-const erasingDelay = 100;
-const newTextDelay = 2000; 
-let textArrayIndex = 0;
-let charIndex = 0;
+    window.addEventListener('scroll', function() {
+        const header = document.querySelector('header');
+        header.classList.toggle('scrolled', window.scrollY > 0);
+    });
 
-function type() {
-    if (charIndex < textArray[textArrayIndex].length) {
-        typedTextSpan.textContent += textArray[textArrayIndex].charAt(charIndex);
-        charIndex++;
-        setTimeout(type, typingDelay);
-    } else {
-        setTimeout(erase, newTextDelay);
+    // Typing effect for home section
+    const typingText = document.querySelector('.typing-text span');
+    const textArray = ['Developer', 'Designer', 'Hacker', 'Musician'];
+    let textIndex = 0;
+    let letterIndex = 0;
+
+    function type() {
+        if (letterIndex < textArray[textIndex].length) {
+            typingText.textContent += textArray[textIndex].charAt(letterIndex);
+            letterIndex++;
+            setTimeout(type, 100);
+        } else {
+            setTimeout(erase, 1000);
+        }
     }
-}
 
-function erase() {
-    if (charIndex > 0) {
-        typedTextSpan.textContent = textArray[textArrayIndex].substring(0, charIndex - 1);
-        charIndex--;
-        setTimeout(erase, erasingDelay);
-    } else {
-        textArrayIndex++;
-        if (textArrayIndex >= textArray.length) textArrayIndex = 0;
-        setTimeout(type, typingDelay + 1100);
+    function erase() {
+        if (letterIndex > 0) {
+            typingText.textContent = textArray[textIndex].substring(0, letterIndex - 1);
+            letterIndex--;
+            setTimeout(erase, 100);
+        } else {
+            textIndex = (textIndex + 1) % textArray.length;
+            setTimeout(type, 500);
+        }
     }
-}
 
-document.addEventListener("DOMContentLoaded", function () {
-    if (textArray.length) setTimeout(type, newTextDelay + 250);
-});
-
-
-const menuToggle = document.querySelector('.menu-toggle');
-const nav = document.querySelector('nav');
-
-menuToggle.addEventListener('click', () => {
-    nav.classList.toggle('active');
-});
-
-window.addEventListener('scroll', () => {
-    const header = document.querySelector('header');
-    header.classList.toggle('scrolled', window.scrollY > 0);
+    type();
 });
